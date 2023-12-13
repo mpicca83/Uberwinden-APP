@@ -17,7 +17,7 @@ export const ProductItem = ({item, setProductDetailId }) => {
 
 const styles = StyleSheet.create({
    container:{
-        width:"80%",
+        // width:"80%",
         height:100,
         backgroundColor:colors.lila3,
         marginHorizontal:"10%",
@@ -28,16 +28,17 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"space-between",
-        gap:30
+        gap:30,
+
     },
     text:{
-      width:"60%",
       textAlign:"center",
-      fontSize:20
+      fontSize:20,
+      flex:3
+
     },
     image:{
-        minWidth:90,
         height:90,
-        width:"30%"
+        flex:2
     }
 })

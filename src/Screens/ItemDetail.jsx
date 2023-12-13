@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import productos from "../Data/productos.json"
 import { colors } from '../Global/colors'
@@ -14,10 +14,6 @@ export const ItemDetail = ({ search, setSearch, productDetailId, setProductDetai
     setProduct(productFind)
   },[])
 
-  useEffect(()=>{
-    // setProductDetailId('')
-  },[search])
-
   return (
     <View style={styles.container}>
 
@@ -28,7 +24,7 @@ export const ItemDetail = ({ search, setSearch, productDetailId, setProductDetai
         <Text>Volver</Text>
       </Pressable>
 
-      <View style={styles.content} >
+      <ScrollView style={styles.content} >
         
         <Image
           style={styles.image}
@@ -41,6 +37,11 @@ export const ItemDetail = ({ search, setSearch, productDetailId, setProductDetai
           <Text>{product.descripcion}</Text>
         </View>
 
+        <View style={styles.containerData}>
+          <Text style={styles.data}>Talle: {product.talle}</Text>
+          <Text style={styles.data}>Color: {product.color}</Text>
+        </View>
+        
         <View style={styles.containerPrice}>
           <Text style={styles.price}>$ {product.precio}</Text>
           <Pressable style={styles.buyNow}>
@@ -48,7 +49,7 @@ export const ItemDetail = ({ search, setSearch, productDetailId, setProductDetai
           </Pressable>
         </View>
 
-      </View>
+      </ScrollView>
 
     </View>
   )
@@ -60,13 +61,13 @@ const styles = StyleSheet.create({
     backgroundColor:colors.celeste1,
   },
   content:{
-    alignItems:"center",
     height:"100%",
   },
   image:{
     width:"80%",
-    height:220,
+    height:180,
     borderRadius:20,
+    alignSelf:'center'
   },
   goBack:{
     flexDirection:'row',
@@ -75,9 +76,17 @@ const styles = StyleSheet.create({
     paddingStart:30
   },
   containerText:{
-    gap:20,
+    gap:5,
     paddingHorizontal:20,
-    paddingVertical:20
+    paddingTop:10
+  },
+  containerData:{
+    flexDirection:'row',
+    justifyContent:'space-evenly',
+    paddingVertical:10
+  },
+  data:{
+    fontWeight:'bold',
   },
   containerPrice:{
     width:"100%",

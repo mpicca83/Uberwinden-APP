@@ -29,7 +29,6 @@ export const ItemList = ({ search, setSearch, category, setCategorySelected, set
     
   },[search, category])
  
-
   return (
     <>
       <Header title={category ? `Categoría: ${category}` : `Búsqueda: ${search}`} setSearch={setSearch} setProductDetailId={setProductDetailId} />

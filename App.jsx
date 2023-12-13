@@ -14,13 +14,11 @@ export default function App() {
     setCategorySelected('')
   },[search])
 
-
   const [fontLoaded] = useFonts({
     Oswald:require("./assets/Fonts/Oswald-Bold.ttf")
   })
 
   if(!fontLoaded) return null
-
 
   return (
     <View style={styles.container}>
@@ -49,9 +47,7 @@ export default function App() {
             setProductDetailId={setProductDetailId} 
 
           />
-
       }
-
     </View>
   )
 }
