@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { colors } from '../Global/colors'
+import { Search } from './Search'
+import { useNavigation } from '@react-navigation/native'
 import Logo from '../../assets/Images/logoUberwinden.png'
-import {Search} from './Search'
 
-export const Header = ({title, setSearch, setProductDetailId}) => {
+export const Header = ({title}) => {
+
+  const navigation = useNavigation()
 
   return (
     <>
@@ -16,7 +19,7 @@ export const Header = ({title, setSearch, setProductDetailId}) => {
       </View>
 
       <View style={styles.container2}>
-        <Search setSearch={setSearch} setProductDetailId={setProductDetailId} />
+        <Search navigation={navigation}/>
         <Text style={styles.text}>{title}</Text>
         
       </View>

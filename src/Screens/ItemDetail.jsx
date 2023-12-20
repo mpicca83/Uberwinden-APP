@@ -2,27 +2,20 @@ import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-nati
 import React, { useEffect, useState } from 'react'
 import productos from "../Data/productos.json"
 import { colors } from '../Global/colors'
-import { Header } from '../Components'
-import { Ionicons } from '@expo/vector-icons'
 
-export const ItemDetail = ({ search, setSearch, productDetailId, setProductDetailId}) => {
+export const ItemDetail = ({ route }) => {
 
   const [product, setProduct] = useState({})
 
+  const {id} = route.params
+
   useEffect(()=>{
-    const productFind = productos.find(product => product.id === productDetailId)
+    const productFind = productos.find(product => product.id === id)
     setProduct(productFind)
   },[])
 
   return (
     <View style={styles.container}>
-
-      <Header title='Detalle' setSearch={setSearch} setProductDetailId={setProductDetailId}/>
-
-      <Pressable style={styles.goBack} onPress={()=> setProductDetailId('')}>
-        <Ionicons name="md-chevron-back-outline" size={24} color="black" /> 
-        <Text>Volver</Text>
-      </Pressable>
 
       <ScrollView style={styles.content} >
         

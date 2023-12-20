@@ -3,14 +3,15 @@ import { colors } from '../Global/colors'
 import { AntDesign , Entypo} from "@expo/vector-icons"
 import { useState } from 'react'
 
-export const Search = ({setSearch, setProductDetailId}) => {
+export const Search = ({ navigation }) => {
 
     const [input, setInput] = useState("")
 
     const buscar = () =>{
-        setSearch(input)
+        
+        navigation.navigate("Busqueda",{input})
         setInput("")
-        setProductDetailId('')
+        
     }
 
     const borrar = () => {

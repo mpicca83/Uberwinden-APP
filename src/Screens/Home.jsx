@@ -1,16 +1,8 @@
-import { StyleSheet, View } from 'react-native'
-import { Header, Categories } from '../Components'
+import { Categories } from '../Components'
 
-export const Home = ({setSearch, category, setProductDetailId}) => {
+export const Home = ({navigation}) => {
 
     return (
-      <View style={styles.container}>
-        <Header title='Seleccione una categoría' setSearch={setSearch} setProductDetailId={setProductDetailId} />
-        <Categories category={category} />
-      </View>
+        <Categories navigation={navigation} />
     )
 }
-
-
-const styles = StyleSheet.create({
-})

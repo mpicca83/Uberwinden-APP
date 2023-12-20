@@ -1,10 +1,10 @@
 import { StyleSheet, Text, Image, Pressable } from 'react-native'
 import { colors } from '../Global/colors'
 
-export const ProductItem = ({item, setProductDetailId }) => {
+export const ProductItem = ({item, navigation}) => {
 
   return (
-    <Pressable style={styles.container} onPress={()=> setProductDetailId(item.id)} >
+    <Pressable style={styles.container} onPress={()=> navigation.navigate('Detalle', {id:item.id})} >
       <Text style={styles.text} >{item.titulo}</Text>
       <Image
             style={styles.image}
@@ -17,7 +17,6 @@ export const ProductItem = ({item, setProductDetailId }) => {
 
 const styles = StyleSheet.create({
    container:{
-        // width:"80%",
         height:100,
         backgroundColor:colors.lila3,
         marginHorizontal:"10%",
@@ -34,8 +33,8 @@ const styles = StyleSheet.create({
     text:{
       textAlign:"center",
       fontSize:20,
-      flex:3
-
+      flex:3,
+      color:'#fff'
     },
     image:{
         height:90,
