@@ -1,7 +1,9 @@
 import { StyleSheet, View, StatusBar } from 'react-native'
 import { useFonts } from "expo-font"
 import { colors } from './src/Global/colors'
-import { Navigation } from './src/Navigation/Navigation'
+import { TabNavigator } from './src/Navigation/TabNavigator'
+import { store } from './src/App/store'
+import { Provider } from 'react-redux'
 
 export default function App() {
 
@@ -13,10 +15,10 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <StatusBar
-        backgroundColor={colors.aguamarino1}
-      />
-      <Navigation/>
+      <StatusBar backgroundColor={colors.aguamarino1} />
+      <Provider store={store} >
+        <TabNavigator/>
+      </Provider>
     </View>
   )
 }

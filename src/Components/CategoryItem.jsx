@@ -1,10 +1,17 @@
 import { Pressable, StyleSheet, Text } from 'react-native'
 import { colors } from '../Global/colors'
+import { useDispatch } from 'react-redux'
+import { setProductosFiltradoPorCategoria } from '../Features/Shop/shopSlice'
 
 export const CategoryItem = ({item, navigation}) => {
 
+  const dispatch = useDispatch()
+
   return (
-    <Pressable style={styles.container} onPress={()=> navigation.navigate("Categorias",{item})}>
+    <Pressable style={styles.container} onPress={()=> {
+      dispatch(setProductosFiltradoPorCategoria(item))
+      navigation.navigate("Categorias",{item})
+    }}>
         <Text style={styles.text}>{item}</Text>
     </Pressable>
   )
@@ -21,6 +28,7 @@ const styles = StyleSheet.create({
         alignItems:"center",
         borderRadius:25,
         elevation:4,
+        height:50
     },
     text:{
       fontWeight:'bold',

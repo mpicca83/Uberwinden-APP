@@ -1,18 +1,10 @@
 import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import productos from "../Data/productos.json"
 import { colors } from '../Global/colors'
+import { useSelector } from 'react-redux'
 
-export const ItemDetail = ({ route }) => {
+export const ItemDetail = () => {
 
-  const [product, setProduct] = useState({})
-
-  const {id} = route.params
-
-  useEffect(()=>{
-    const productFind = productos.find(product => product.id === id)
-    setProduct(productFind)
-  },[])
+  const product = useSelector((state) => state.shop.value.productoSeleccionado)
 
   return (
     <View style={styles.container}>
@@ -61,12 +53,6 @@ const styles = StyleSheet.create({
     height:180,
     borderRadius:20,
     alignSelf:'center'
-  },
-  goBack:{
-    flexDirection:'row',
-    alignItems:'center',
-    padding:10,
-    paddingStart:30
   },
   containerText:{
     gap:5,

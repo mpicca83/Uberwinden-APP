@@ -2,16 +2,18 @@ import { StyleSheet, View, Pressable, TextInput } from 'react-native'
 import { colors } from '../Global/colors'
 import { AntDesign , Entypo} from "@expo/vector-icons"
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setProductosBuscado } from '../Features/Shop/shopSlice'
 
 export const Search = ({ navigation }) => {
 
+    const dispatch = useDispatch()
     const [input, setInput] = useState("")
 
     const buscar = () =>{
-        
+        dispatch(setProductosBuscado(input))
         navigation.navigate("Busqueda",{input})
         setInput("")
-        
     }
 
     const borrar = () => {

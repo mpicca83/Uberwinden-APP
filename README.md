@@ -1,6 +1,6 @@
 # Überwinden APP - Ropa Deportiva Ecommerce
 
-Este es un proyecto para la cuarta entrega en el curso de desarrollo de aplicaciones.
+Este es un proyecto para la quinta entrega en el curso de desarrollo de aplicaciones.
 
 
 ## Descripción
@@ -10,7 +10,8 @@ Bienvenido a Überwinden-APP, una aplicación exclusiva de comercio electrónico
 
 ## Nueva Implementación
 
-Navegación entre pantallas
+* Tab Navigation
+* Redux
 
 
 
