@@ -1,37 +1,50 @@
-import {FlatList, StyleSheet, Text, View, Pressable} from 'react-native'
-import cartProductos from "../Data/cart.json"
-import {useEffect, useState} from 'react'
-import {colors} from '../Global/colors'
-import {CartItem} from '../Components'
+import { FlatList, StyleSheet, Text, View, Pressable } from 'react-native'
+import { useState } from 'react'
+import { colors } from '../Global/colors'
+import { CartItem } from '../Components'
+import { useSelector } from 'react-redux'
+import { usePostOrdenMutation } from '../App/services/shopServices'
+import { useDispatch } from 'react-redux'
+import { removeAllItem } from '../Features/Cart/cartSlice'
 
 export const Cart = () => {
 
-    const [cart,setCart] = useState([])
-    const [total ,setTotal] = useState(0)
+  const [isPressed, setIsPressed] = useState(false)
 
-    useEffect(()=>{
-        setCart(cartProductos)
-    },[])
+  const dispatch = useDispatch()
 
-    useEffect(()=>{
-        const total = cart.reduce((acc,product)=> acc + (product.precio * product.quantity), 0)
-        setTotal(total)
-    },[cart])
+  const cart = useSelector(state => state.cart.value)
+  const [postOrder] = usePostOrdenMutation()
  
+  const handlePressIn = () => setIsPressed(true)
+  const handlePressOut = () => setIsPressed(false)
+
+  const press = () => {
+    if(cart.items.length > 0){
+      postOrder(cart)
+      dispatch(removeAllItem())
+    }
+  }
+
   return (
     <View style={styles.container}>
       {        
-        cart.length > 0
+        cart.items.length > 0
         ?<FlatList
           style={styles.list}
-          data={cart}
+          data={cart.items}
           keyExtractor={item => item.id}
           renderItem={({item})=> <CartItem item={item} />}
         />
         :<Text style={styles.carritoVacio}>El Carrito esta vacío.</Text>
       }    
-        <Pressable style={styles.confirmContainer}>
-            <Text style={styles.text}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })} </Text>
+        <Pressable 
+          style={[styles.confirmContainer, isPressed && styles.pressedButton]}
+          onPress={()=> press()}
+          onPressIn={handlePressIn}
+          onPressOut={handlePressOut}
+          >
+            <Text style={styles.text}>Total: {cart.total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })} </Text>
             <Text style={styles.text}>Confirmar</Text>
         </Pressable>
     </View>
@@ -65,12 +78,17 @@ const styles = StyleSheet.create({
     left:20,
     right:20,
     borderRadius:15,
-},
-text:{
-  color:"white",
-  fontSize:18,
-},
-list:{
-  marginBottom:55
-}
+  },
+  text:{
+    color:"white",
+    fontSize:18,
+  },
+  list:{
+    marginBottom:55
+  },
+  pressedButton: {
+    backgroundColor: colors.lila3,
+    backgroundColor: colors.azul,
+    elevation: 5
+  },
 })

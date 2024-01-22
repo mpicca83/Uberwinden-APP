@@ -2,16 +2,22 @@ import { FlatList, StyleSheet, Text } from 'react-native'
 import { useEffect, useState } from 'react'
 import { colors } from '../Global/colors'
 import { ProductItem } from '../Components'
-import { useSelector } from 'react-redux'
+import { useGetProductosQuery } from '../App/services/shopServices'
 
-export const ItemList = ({navigation}) => {
+export const ItemList = ({navigation, route}) => {
 
-  const productosFiltrado = useSelector((state) => state.shop.value.productosFiltrado)
+  const {item, productosFiltrado} = route.params
+  
+  const {data, isLoading} = useGetProductosQuery(item)
 
-  const [products, setProducts] = useState(productosFiltrado)
+  const [products, setProducts] = useState([])
 
   useEffect(()=>{
-    setProducts(productosFiltrado)
+    !isLoading && setProducts(Object.values(data))
+  },[data])
+
+  useEffect(()=>{
+    productosFiltrado !== undefined && setProducts(Object.values(productosFiltrado))
   },[productosFiltrado])
  
   return (

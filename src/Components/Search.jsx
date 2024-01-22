@@ -2,17 +2,22 @@ import { StyleSheet, View, Pressable, TextInput } from 'react-native'
 import { colors } from '../Global/colors'
 import { AntDesign , Entypo} from "@expo/vector-icons"
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setProductosBuscado } from '../Features/Shop/shopSlice'
+import { useGetAllProductsQuery } from '../App/services/shopServices'
 
 export const Search = ({ navigation }) => {
 
-    const dispatch = useDispatch()
     const [input, setInput] = useState("")
 
+    const {data} = useGetAllProductsQuery()
+
     const buscar = () =>{
-        dispatch(setProductosBuscado(input))
-        navigation.navigate("Busqueda",{input})
+        const normalizedSearch = input.toUpperCase()
+        const productosFiltrado = data.filter((product) => {
+            const productInfo = `${product.titulo.toUpperCase()} ${product.color} ${product.categoria}`
+            return productInfo.includes(normalizedSearch)
+        })
+
+        navigation.navigate("Busqueda",{productosFiltrado, input})
         setInput("")
     }
 

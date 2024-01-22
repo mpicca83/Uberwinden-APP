@@ -1,10 +1,27 @@
 import { StyleSheet, Text, View, Image, Pressable, ScrollView } from 'react-native'
+import { useEffect, useState } from 'react'
 import { colors } from '../Global/colors'
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { addItem } from '../Features/Cart/cartSlice'
+import { useGetProductoQuery } from '../App/services/shopServices'
 
-export const ItemDetail = () => {
+export const ItemDetail = ({route}) => {
 
-  const product = useSelector((state) => state.shop.value.productoSeleccionado)
+  const [isPressed, setIsPressed] = useState(false)
+  const [product, setProduct] = useState([])
+
+  const {id} = route.params
+
+  const dispatch = useDispatch()
+
+  const {data, isLoading} = useGetProductoQuery(id)
+
+  useEffect(()=>{
+    !isLoading && setProduct(data)
+  },[data])
+
+  const handlePressIn = () => setIsPressed(true)
+  const handlePressOut = () => setIsPressed(false)
 
   return (
     <View style={styles.container}>
@@ -29,8 +46,13 @@ export const ItemDetail = () => {
         
         <View style={styles.containerPrice}>
           <Text style={styles.price}>$ {product.precio}</Text>
-          <Pressable style={styles.buyNow}>
-            <Text style={styles.buyNowText}>Comprar</Text>
+          <Pressable 
+            style={[styles.buyNow, isPressed && styles.pressedButton]} 
+            onPress={()=> dispatch(addItem(product)) }
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+            >
+            <Text style={styles.buyNowText}>Agregar al Carrito</Text>
           </Pressable>
         </View>
 
@@ -89,5 +111,9 @@ const styles = StyleSheet.create({
   },
   buyNowText:{
     color:"white"
-  }
+  },
+  pressedButton: {
+    backgroundColor: colors.azul,
+    elevation: 5
+  },
 })

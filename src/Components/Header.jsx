@@ -4,7 +4,7 @@ import { Search } from './Search'
 import { useNavigation } from '@react-navigation/native'
 import Logo from '../../assets/Images/logoUberwinden.png'
 
-export const Header = ({title}) => {
+export const Header = ({title, search=true}) => {
 
   const navigation = useNavigation()
 
@@ -19,7 +19,7 @@ export const Header = ({title}) => {
       </View>
 
       <View style={styles.container2}>
-        <Search navigation={navigation}/>
+        {search && <Search navigation={navigation}/>}
         <Text style={styles.text}>{title}</Text>
         
       </View>
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
       backgroundColor:colors.celeste1,
       width:"100%",
       height:150,
-      alignItems:"center"
+      alignItems:"center",
+      justifyContent:"center"
   },
     image:{
       height:45,

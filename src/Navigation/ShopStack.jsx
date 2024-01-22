@@ -4,7 +4,7 @@ import {Header} from '../Components'
 
 const Stack = createNativeStackNavigator()
 
-export const ShopTab = () => {
+export const ShopStack = () => {
   return (
     <Stack.Navigator
         initialRouteName='Home'

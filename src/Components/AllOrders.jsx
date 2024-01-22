@@ -1,18 +1,18 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, Pressable } from 'react-native'
 import { Feather } from "@expo/vector-icons"
 import { colors } from '../Global/colors'
 
-export const OrderItem = ({order}) => {
-
-    const total = order.items.reduce((acc, product)=> acc + (product.precio * product.quantity), 0)
+export const AllOrders = ({item, navigation}) => {
 
     return (
         <View style={styles.container}>
-        <View style={styles.textContainer}>
-                <Text style={styles.text1}>{new Date(order.fecha).toLocaleString('es-ES')}</Text>
-                <Text style={styles.text2}>Total: {total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Text>
-        </View>
-            <Feather name="search" size={30} color="black"/>
+            <View style={styles.textContainer}>
+                    <Text style={styles.text1}>{item.date}</Text>
+                    <Text style={styles.text2}>Total: {item.total.toLocaleString('es-AR', { style: 'currency', currency: 'ARS' })}</Text>
+            </View>
+            <Pressable onPress={()=> navigation.navigate("OrderItem",{item})}>
+                <Feather name="search" size={30} color="black"/>
+            </Pressable>
         </View>
     )
 }

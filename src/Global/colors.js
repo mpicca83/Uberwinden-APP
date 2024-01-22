@@ -5,5 +5,6 @@ export const colors = {
     aguamarino1:"#48bfe3",
     aguamarino2:"#64dfdf",
     aguamarino3:"#80ffdb",
-    celeste1:"#C5EDF9"
+    celeste1:"#C5EDF9",
+    azul:"#3241E6",
 }

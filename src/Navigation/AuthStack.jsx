@@ -1,23 +1,24 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { Cart } from '../Screens'
 import { Header } from '../Components'
+import { Signup, Login } from '../Screens'
 
 const Stack = createNativeStackNavigator()
 
-export const CartTab = () => {
+export const AuthStack = () => {
+    
   return (
     <Stack.Navigator
-        initialRouteName="Cart"
+        initialRouteName='Login'
         screenOptions={
             ({route})=>{
                 return {
-                    header : () => <Header title='Carrito' />
+                    header : () => <Header title="Bienvenido" search={false} />
                 }
-            }   
+            }
         }
     >
-        <Stack.Screen name="Cart" component={Cart} />
-
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Signup" component={Signup} />
     </Stack.Navigator>
   )
 }

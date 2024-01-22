@@ -1,8 +1,18 @@
-import { Text, StyleSheet, View } from 'react-native'
+import { Text, StyleSheet, View, Pressable } from 'react-native'
+import { useState } from 'react'
 import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../Global/colors'
+import { useDispatch } from 'react-redux'
+import { removeItem } from '../Features/Cart/cartSlice'
 
-export const CartItem = ({item}) => {
+export const CartItem = ({item, icon=true}) => {
+
+    const [isPressed, setIsPressed] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const handlePressIn = () => setIsPressed(true)
+    const handlePressOut = () => setIsPressed(false)  
 
     return(
         <View style={styles.container}>
@@ -20,7 +30,16 @@ export const CartItem = ({item}) => {
                 </View>
 
             </View>
-            <Ionicons name="trash-outline" size={30} color='black' />
+            {
+                icon &&
+                <Pressable 
+                    onPress={()=> dispatch(removeItem(item)) }
+                    onPressIn={handlePressIn}
+                    onPressOut={handlePressOut}
+                >
+                    <Ionicons style={isPressed && styles.pressedButton} name="trash-outline" size={30} color='black' />
+                </Pressable>
+            }
         </View>
     )
 }
@@ -36,10 +55,11 @@ const styles = StyleSheet.create({
         justifyContent:"space-between",
         alignItems:"center",
         borderRadius:10,
-        borderWidth:2
+        borderWidth:2,
     },
     textContainer:{
-        gap:5
+        gap:5,
+        maxWidth:"85%"
     },
     section:{
         flexDirection:"row",
@@ -55,5 +75,8 @@ const styles = StyleSheet.create({
     text2:{
         fontSize:17,
         color: '#ffff',
-    }
+    },
+    pressedButton: {
+        color: "red",
+      },
 })
