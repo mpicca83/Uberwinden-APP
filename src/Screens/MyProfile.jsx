@@ -1,17 +1,32 @@
 import { StyleSheet, View, Image } from 'react-native'
-import { AddButton } from '../Components'
+import { AddButton, AddModal } from '../Components'
 import { colors } from '../Global/colors'
 import { useDispatch } from 'react-redux'
-import { clearUser } from '../Features/Auth/authSlice'
+import { clearUser } from '../Features/auth/authSlice'
 import { useSelector } from 'react-redux'
 import { useGetProfileImageQuery } from '../App/services/shopServices'
+import { deleteAllSession } from '../DataBase'
+import { useState } from 'react'
 
 export const MyProfile = ({navigation}) => {
+
+    const [isModalVisible, setIsModalVisible] = useState(false)
 
     const localId = useSelector(state => state.auth.value.localId)
 
     const {data} = useGetProfileImageQuery(localId)
+
     const dispatch = useDispatch()
+
+    const handleLogout = () => setIsModalVisible(true)
+
+    const handleConfirmLogout = () =>{
+        deleteAllSession()
+        dispatch(clearUser())
+        setIsModalVisible(false)
+    }
+
+    const handleCancelLogout = () => setIsModalVisible(false)
 
     return (
         <View style={styles.container}>
@@ -21,8 +36,12 @@ export const MyProfile = ({navigation}) => {
                 resizeMode='cover'
             />
             <AddButton title="Cambiar Foto" onPress={()=> navigation.navigate("ImageSelector")}/>
-            <AddButton title="Cerrar Sesión" onPress={()=> dispatch(clearUser())}/>
-
+            <AddButton title="Cerrar Sesión" onPress={handleLogout}/>
+            <AddModal
+                isVisible={isModalVisible}
+                onConfirm={handleConfirmLogout}
+                onCancel={handleCancelLogout}
+            />
         </View>
     )
 }

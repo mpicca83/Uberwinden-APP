@@ -7,6 +7,6 @@ export {TabIcon} from './TabIcon'
 export {CartItem} from './CartItem'
 export {AllOrders} from './AllOrders'
 export {InputForm} from './InputForm'
-export {SubmitButton} from './SubmitButton'
 export {AddButton} from './AddButton'
+export {AddModal} from './AddModal'
 

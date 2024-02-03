@@ -1,12 +1,13 @@
 import {useEffect, useState } from 'react'
-import { View, Text, StyleSheet, Pressable} from 'react-native'
-import { InputForm, SubmitButton } from '../Components'
+import { View, Text, StyleSheet, Pressable, ScrollView} from 'react-native'
+import { InputForm, AddButton } from '../Components'
 import { colors } from '../Global/colors'
 import { useSignupMutation } from '../App/services/auth'
 import { useDispatch } from 'react-redux'
-import { setUser } from '../Features/Auth/authSlice'
+import { setUser } from '../Features/auth/authSlice'
 import { formValidation } from '../Validations/formValidation'
 import { addUser } from '../Features/Cart/cartSlice'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 export const Signup = ({navigation}) => {
 
@@ -25,6 +26,8 @@ export const Signup = ({navigation}) => {
     if(isSuccess) {
       dispatch(setUser(data))
       dispatch(addUser(data))
+      insertSession(data)
+      .catch(err => console.log(err))
     }
     if(isError) console.log(error)
   },[data, isError, isSuccess])
@@ -54,47 +57,57 @@ export const Signup = ({navigation}) => {
   }
 
   return (
-    <View style={styles.main}>
-      <View style={styles.container}>
-          <Text style={styles.title} >Registrate</Text>
-          <InputForm
-            label="Email"
-            value={email}
-            onChangeText={(t) => setEmail(t)}
-            isSecure={false}
-            error={emailError}
-          />
-          <InputForm
-            label="Contraseña"
-            value={password}
-            onChangeText={(t) => setPassword(t)}
-            isSecure={true}
-            error={passwordError}
-          />
-           <InputForm
-            label="Confirmar contraseña"
-            value={confirmPassword}
-            onChangeText={(t) => setConfirmPassword(t)}
-            isSecure={true}
-            error={confirmPasswordError}
+    <ScrollView style={styles.main}>
+      <View style={styles.cont}>
+        <View style={styles.container}>
+            <Text style={styles.title} >Registrate</Text>
+            <InputForm
+              label="Email"
+              value={email}
+              onChangeText={(t) => setEmail(t)}
+              isSecure={false}
+              error={emailError}
+            />
+            <InputForm
+              label="Contraseña"
+              value={password}
+              onChangeText={(t) => setPassword(t)}
+              isSecure={true}
+              error={passwordError}
+            />
+            <InputForm
+              label="Confirmar contraseña"
+              value={confirmPassword}
+              onChangeText={(t) => setConfirmPassword(t)}
+              isSecure={true}
+              error={confirmPasswordError}
 
-          />
-          <SubmitButton title="Enviar" onPress={onSubmit}  
-          />
-          <Text style={styles.sub}>¿Ya estas registrado?</Text>
-          <Pressable onPress={()=> navigation.navigate("Login")}>
-              <Text style={styles.subLink}>Iniciar Sesión</Text>
-          </Pressable>
+            />
+            <AddButton title="Enviar" onPress={onSubmit}  
+            />
+            <Text style={styles.sub}>¿Ya estas registrado?</Text>
+            <Pressable onPress={()=> navigation.navigate("Login")}>
+                <Text style={styles.subLink}>Iniciar Sesión</Text>
+            </Pressable>
+        </View>
       </View>
-    </View>
+      <Spinner
+        visible={isLoading}
+        textContent={'Cargando...'}
+        textStyle={styles.spinnerText}
+        color={colors.lila1}
+      />
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
     main:{
       flex:1,
-      alignItems:"center",
       backgroundColor:colors.celeste1,
+    },
+    cont:{
+      alignItems:"center",
     },
     container:{
       width:"90%",
@@ -114,5 +127,8 @@ const styles = StyleSheet.create({
     subLink:{
       fontSize:14,
       color:"#ffff"
-    }
+    },
+    spinnerText: {
+      color: colors.lila1,
+    },
 })

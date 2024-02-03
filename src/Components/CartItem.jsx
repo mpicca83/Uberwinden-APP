@@ -4,6 +4,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../Global/colors'
 import { useDispatch } from 'react-redux'
 import { removeItem } from '../Features/Cart/cartSlice'
+import { showToast } from '../Global/toast'
+
 
 export const CartItem = ({item, icon=true}) => {
 
@@ -13,6 +15,11 @@ export const CartItem = ({item, icon=true}) => {
 
     const handlePressIn = () => setIsPressed(true)
     const handlePressOut = () => setIsPressed(false)  
+
+    const trash = () => {
+        dispatch(removeItem(item))
+        showToast('error','Producto eliminado','',1000)
+    }
 
     return(
         <View style={styles.container}>
@@ -33,7 +40,7 @@ export const CartItem = ({item, icon=true}) => {
             {
                 icon &&
                 <Pressable 
-                    onPress={()=> dispatch(removeItem(item)) }
+                    onPress={trash}
                     onPressIn={handlePressIn}
                     onPressOut={handlePressOut}
                 >

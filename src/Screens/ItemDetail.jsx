@@ -4,6 +4,9 @@ import { colors } from '../Global/colors'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../Features/Cart/cartSlice'
 import { useGetProductoQuery } from '../App/services/shopServices'
+import { showToast } from '../Global/toast'
+import Spinner from 'react-native-loading-spinner-overlay'
+
 
 export const ItemDetail = ({route}) => {
 
@@ -22,6 +25,11 @@ export const ItemDetail = ({route}) => {
 
   const handlePressIn = () => setIsPressed(true)
   const handlePressOut = () => setIsPressed(false)
+
+  const submit = () => {
+    dispatch(addItem(product))
+    showToast('success','Producto agregado al carrito','',1000)
+  }
 
   return (
     <View style={styles.container}>
@@ -48,7 +56,7 @@ export const ItemDetail = ({route}) => {
           <Text style={styles.price}>$ {product.precio}</Text>
           <Pressable 
             style={[styles.buyNow, isPressed && styles.pressedButton]} 
-            onPress={()=> dispatch(addItem(product)) }
+            onPress={submit}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
             >
@@ -57,7 +65,12 @@ export const ItemDetail = ({route}) => {
         </View>
 
       </ScrollView>
-
+      <Spinner
+          visible={isLoading}
+          textContent={'Cargando...'}
+          textStyle={styles.spinnerText}
+          color={colors.lila1}
+        />
     </View>
   )
 }
@@ -115,5 +128,8 @@ const styles = StyleSheet.create({
   pressedButton: {
     backgroundColor: colors.azul,
     elevation: 5
+  },
+  spinnerText: {
+    color: colors.lila1,
   },
 })

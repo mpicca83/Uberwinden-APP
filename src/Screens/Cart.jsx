@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { usePostOrdenMutation } from '../App/services/shopServices'
 import { useDispatch } from 'react-redux'
 import { removeAllItem } from '../Features/Cart/cartSlice'
+import { showToast } from '../Global/toast'
 
 export const Cart = () => {
 
@@ -19,10 +20,18 @@ export const Cart = () => {
   const handlePressIn = () => setIsPressed(true)
   const handlePressOut = () => setIsPressed(false)
 
-  const press = () => {
+  const press = async () => {
     if(cart.items.length > 0){
-      postOrder(cart)
-      dispatch(removeAllItem())
+      try {
+        const result = await postOrder(cart)
+        dispatch(removeAllItem())
+  
+        if (result.data) {
+          showToast('success', 'El pedido fue confirmado', `Se registro bajo la orden n°: ${result.data.name}`,4000)
+        }
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
 

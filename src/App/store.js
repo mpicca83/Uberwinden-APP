@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import shopReducer from "../Features/Shop/shopSlice"
 import cartReducer from "../Features/Cart/cartSlice"
-import authReducer from '../Features/Auth/authSlice'
+import authReducer from '../Features/auth/authSlice'
 import { shopApi } from './services/shopServices'
 import { authApi } from './services/auth'
 import { setupListeners } from '@reduxjs/toolkit/query'

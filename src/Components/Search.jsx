@@ -11,14 +11,16 @@ export const Search = ({ navigation }) => {
     const {data} = useGetAllProductsQuery()
 
     const buscar = () =>{
-        const normalizedSearch = input.toUpperCase()
-        const productosFiltrado = data.filter((product) => {
-            const productInfo = `${product.titulo.toUpperCase()} ${product.color} ${product.categoria}`
-            return productInfo.includes(normalizedSearch)
-        })
+        if(data){
+            const normalizedSearch = input.toUpperCase()
+            const productosFiltrado = data.filter((product) => {
+                const productInfo = `${product.titulo.toUpperCase()} ${product.color} ${product.categoria}`
+                return productInfo.includes(normalizedSearch)
+            })
 
-        navigation.navigate("Busqueda",{productosFiltrado, input})
-        setInput("")
+            navigation.navigate("Busqueda",{productosFiltrado, input})
+            setInput("")
+        }
     }
 
     const borrar = () => {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { StyleSheet, Image, View, Text } from 'react-native'
+import { StyleSheet, Image, View } from 'react-native'
 import { AddButton } from '../Components'
 import { colors } from '../Global/colors'
 import * as ImagePicker from 'expo-image-picker'
@@ -69,7 +69,7 @@ export const ImageSelector = ({navigation}) => {
             resizeMode='cover'
         />
         <AddButton title="Tomar foto" onPress={pickImage} />
-        <AddButton title="Buscar en libreria" onPress={libraryImage} />
+        <AddButton title="Buscar en galería" onPress={libraryImage} />
         <AddButton title="Confirmar"  onPress={confirmImage}/>
     </View>
   )

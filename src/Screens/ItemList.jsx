@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { colors } from '../Global/colors'
 import { ProductItem } from '../Components'
 import { useGetProductosQuery } from '../App/services/shopServices'
+import Spinner from 'react-native-loading-spinner-overlay'
 
 export const ItemList = ({navigation, route}) => {
 
@@ -13,8 +14,10 @@ export const ItemList = ({navigation, route}) => {
   const [products, setProducts] = useState([])
 
   useEffect(()=>{
-    !isLoading && setProducts(Object.values(data))
-  },[data])
+    if (!isLoading && productosFiltrado === undefined) {
+      setProducts(Object.values(data))
+    }
+   },[data])
 
   useEffect(()=>{
     productosFiltrado !== undefined && setProducts(Object.values(productosFiltrado))
@@ -22,15 +25,22 @@ export const ItemList = ({navigation, route}) => {
  
   return (
     <>
-      {        
-        products.length > 0
-        ?<FlatList
-          style={styles.container}
-          data={products}
-          keyExtractor={item => item.id}
-          renderItem={({item})=> <ProductItem item={item} navigation={navigation} />}
-        />
-        :<Text style={styles.text}>No existen productos para la búsqueda realizada</Text>
+      { 
+        isLoading
+        ?<Spinner
+          visible={isLoading}
+          textContent={'Cargando...'}
+          textStyle={styles.spinnerText}
+          color={colors.lila1}
+          />
+        :products.length > 0
+          ?<FlatList
+            style={styles.container}
+            data={products}
+            keyExtractor={item => item.id}
+            renderItem={({item})=> <ProductItem item={item} navigation={navigation} />}
+            />
+          :<Text style={styles.text}>No existen productos para la búsqueda realizada</Text>
       }     
     </>
   )
@@ -48,5 +58,8 @@ const styles = StyleSheet.create({
     paddingHorizontal:70,
     paddingTop:20,
     color:colors.lila1
-  }
+  },
+  spinnerText: {
+    color: colors.lila1,
+  },
 })
