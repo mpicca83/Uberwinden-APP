@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setUser } from '../Features/auth/authSlice'
 import { formValidation } from '../Validations/formValidation'
 import { addUser } from '../Features/Cart/cartSlice'
+import { insertSession } from '../DataBase'
 import Spinner from 'react-native-loading-spinner-overlay'
 
 export const Signup = ({navigation}) => {

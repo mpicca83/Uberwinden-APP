@@ -31,7 +31,7 @@ export const MyProfile = ({navigation}) => {
     return (
         <View style={styles.container}>
             <Image
-                source={data ? {uri: data.image} : require("../../assets/user.png")}
+                source={data ? {uri: data.image} : require("../../assets/Images/user.png")}
                 style={styles.image}
                 resizeMode='cover'
             />

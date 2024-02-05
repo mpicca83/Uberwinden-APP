@@ -62,7 +62,7 @@ export const Login = ({navigation}) => {
     <ScrollView style={styles.main}>
       <View style={styles.cont}>
         <View style={styles.container}>
-            <Text style={styles.title} >Iniciar de Sesión</Text>
+            <Text style={styles.title} >Iniciar Sesión</Text>
             <InputForm
               label="Email"
               value={email}

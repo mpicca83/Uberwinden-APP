@@ -60,11 +60,10 @@ export const ImageSelector = ({navigation}) => {
         navigation.goBack()
     }
 
-
   return (
     <View style={styles.container}>
        <Image
-            source={image ? { uri: image } : require("../../assets/user.png")}
+            source={image ? { uri: image } : require("../../assets/Images/user.png")}
             style={styles.image}
             resizeMode='cover'
         />
