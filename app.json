@@ -21,10 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/Images/logoU.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mpicca.uberwindenAPP"
     },
     "web": {
       "favicon": "./assets/Images/logoU.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c35a3884-0357-4203-9a9e-50d25d6c8e6a"
+      }
     }
   }
 }
