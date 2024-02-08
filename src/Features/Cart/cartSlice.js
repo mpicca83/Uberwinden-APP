@@ -5,6 +5,7 @@ const initialState = {
     user:null,
     items:[],
     total:0,
+    cantidad:0,
     date:""
   }
 }
@@ -18,6 +19,7 @@ export const cartSlice = createSlice({
         if(itemFind) itemFind.quantity ++
         else state.value.items.push({...actions.payload, quantity:1})
         state.value.total = state.value.items.reduce((acc, item) => acc + (item.precio * item.quantity),0)
+        state.value.cantidad = state.value.items.reduce((acc, item) => acc + item.quantity,0)
         state.value.date = new Date().toLocaleString()
     },
     removeItem:(state, actions) =>{
@@ -25,12 +27,14 @@ export const cartSlice = createSlice({
       if(itemFind.quantity > 1) itemFind.quantity --
       else state.value.items = state.value.items.filter(item => item.id !== actions.payload.id)
       state.value.total = state.value.items.reduce((acc, item) => acc + (item.precio * item.quantity),0)
+      state.value.cantidad = state.value.items.reduce((acc, item) => acc + item.quantity,0)
       state.value.date = new Date().toLocaleString()
     },
     removeAllItem:(state) =>{
       state.value.items = []
       state.value.total = 0
       state.value.date = ""
+      state.value.cantidad = 0
     },
     addUser:(state, actions) =>{
       state.value.user = actions.payload.localId

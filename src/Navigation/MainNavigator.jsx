@@ -4,7 +4,7 @@ import { AuthStack  } from './index'
 import { TabNavigator } from './TabNavigator'
 import { useDispatch, useSelector } from 'react-redux'
 import { fechSession } from '../DataBase'
-import { setUser } from '../Features/auth/authSlice'
+import { setUser } from '../Features/Auth/authSlice'
 import { addUser } from '../Features/Cart/cartSlice'
 
 export const MainNavigator = () => {

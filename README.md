@@ -51,4 +51,4 @@ Este proyecto constituye la entrega final del curso de desarrollo de aplicacione
 
 
 
-© 2023, Mauricio Picca - Proyecto desarrollado como parte del curso de Desarrollo de Aplicaciones.
+© 2024, Mauricio Picca - Proyecto desarrollado como parte del curso de Desarrollo de Aplicaciones.

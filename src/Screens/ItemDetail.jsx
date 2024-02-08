@@ -35,8 +35,8 @@ export const ItemDetail = ({route}) => {
   //Para agrandar la imagen
 
   const width = Dimensions.get("window").width;
-  const ANCHO_IMAGEN = width;
-  const ALTO_IMAGEN = width;
+  const ANCHO_IMAGEN = width*0.8;
+  const ALTO_IMAGEN = 250;
 
   const escalaImg = useSharedValue(1);
   const focoX = useSharedValue(0);
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   },
   image:{
     width:"80%",
-    height:180,
+    height:190,
     borderRadius:20,
     alignSelf:'center',
   },
