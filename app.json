@@ -2,9 +2,9 @@
   "expo": {
     "name": "Überwinden",
     "slug": "uberwinden-APP",
-    "version": "1.0.0",
+    "version": "1.0.4",
     "orientation": "portrait",
-    "icon": "./assets/Images/logoU.png",
+    "icon": "./assets/Images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/Images/logoU.png",
@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/Images/logoU.png",
+        "foregroundImage": "./assets/Images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.mpicca.uberwindenAPP"
